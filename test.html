@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opening Amazon...</title>
+
+  <script>
+    const affiliateUrl = "https://link.amazon/B00BwOoY0";
+
+    function openAmazon() {
+      const ua = navigator.userAgent || navigator.vendor || "";
+
+      // Android
+      if (/Android/i.test(ua)) {
+        /*
+         * Try to open Amazon Shopping app.
+         * If the app cannot handle it, browser fallback is used.
+         */
+        const intentUrl =
+          "intent://www.amazon.in/dp/B00BwOoY0" +
+          "#Intent;" +
+          "scheme=https;" +
+          "package=com.amazon.mShop.android.shopping;" +
+          "S.browser_fallback_url=" +
+          encodeURIComponent(affiliateUrl) +
+          ";end";
+
+        window.location.href = intentUrl;
+
+        // Fallback
+        setTimeout(function () {
+          window.location.href = affiliateUrl;
+        }, 1800);
+
+        return;
+      }
+
+      // iPhone / iPad / other devices
+      window.location.href = affiliateUrl;
+    }
+
+    window.onload = openAmazon;
+  </script>
+</head>
+
+<body>
+  <p>Opening Amazon...</p>
+</body>
+</html>
